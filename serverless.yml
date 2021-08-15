@@ -1,0 +1,38 @@
+service: sls-ts
+
+custom: 
+  webpack: 
+    webpackConfig: './webpack.config.js'
+    includeModules: true
+  config: ${file(./config/${self:provider.stage}.json)}
+    
+plugins:
+  - serverless-webpack
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  timeout: 10
+  stage: ${opt:stage, 'dev-na'}
+  region: ${self:custom.config.region}
+  deploymentBucket: ${self:custom.config.bucket}
+  tags:
+    app: sls-ts
+    function_name: sls-ts
+    stack: ${self:custom.config.stack}
+    env: staging
+    Name: sls-ts-${self:custom.config.stack2}
+
+
+functions:
+  main:
+    name: sls-ts-${self:custom.config.stack2}
+    handler: src/handler.hello
+    events:
+      - http:
+          path: hello
+          method: post
+      - http:
+          path: hello
+          method: get

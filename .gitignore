@@ -1,2 +1,6 @@
 node_modules/
+.idea/**
+.serverless/
+.nyc_output
 .webpack/
+.circleci/configSample.yml

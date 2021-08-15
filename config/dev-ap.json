@@ -1,0 +1,6 @@
+{
+  "region": "ap-northeast-2",
+  "stack" : "aps_northeast2",
+  "stack2": "apsnortheast2",
+  "bucket": "preprod-lambda-ap2"
+}
