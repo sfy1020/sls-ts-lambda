@@ -12,7 +12,7 @@ jobs:
       - run:
           name: sls deploy
           command: |
-            name: npm install -g serverless
+            npm install -g serverless
             serverless deploy --stage dev-ap
         
       
@@ -26,4 +26,5 @@ workflows:
           filters:
             branches:
               only:
+                - main
                 - release
