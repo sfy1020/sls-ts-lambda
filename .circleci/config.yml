@@ -12,7 +12,8 @@ jobs:
       - run:
           name: sls deploy
           command: |
-            name: npm install -g serverless
+            npm install
+            sudo npm install -g serverless
             serverless deploy --stage dev-ap
         
       
