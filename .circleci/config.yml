@@ -1,16 +1,26 @@
-version: 2
+version: 2.1
 orbs:
-   aws-cli: circleci/aws-cli@1.0
-   serverless: circleci/serverless-framework@1.0
+   aws-cli: circleci/aws-cli@2.0.3
+   serverless-framework: circleci/serverless-framework@1.0.1
 jobs:
-   one:
-     executor: serverless/default
-     steps:
-       - checkout
-       - aws-cli/setup
-       - serverless/setup
-       - run: sls deploy 
+  deploy:
+    docker:
+      - image: cimg/node:14.17.5
+    steps:
+      - checkout
+      - run: node --version
+      - run:
+          name: sls deploy
+          command: serverless deploy --stage dev-ap
+      
 workflows:
-  one_and_two:
+  version: 2
+  build_and_deploy:
     jobs:
-      - one
+      - deploy:
+          name: deploy
+          context: tortoise
+          filters:
+            branches:
+              only:
+                - release
